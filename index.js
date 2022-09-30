@@ -94,7 +94,7 @@ client.on('interactionCreate', async interaction => {
             // Check the voteCounts and pick one
             var response = '\n';
             for(var game in voteCounts) {
-                if(voteCounts[game] > 0) {
+                if(voteCounts[game] > 1) {
                     response += `I got ${voteCounts[game]} vote(s) for ${game}\n`;
                     for(var i=0; i<voteCounts[game]; i++) {
                         votes.push(game);
@@ -104,8 +104,13 @@ client.on('interactionCreate', async interaction => {
 
             response += '\n';
 
-            const randomGame = votes[Math.floor(Math.random() * votes.length)];
-            response += `The random game for today is... ${randomGame.toUpperCase()}!`;
+            if(votes.length > 0) {
+                const randomGame = votes[Math.floor(Math.random() * votes.length)];
+                response += `The random game for today is... ${randomGame.toUpperCase()}!`;
+            } else {
+                response += `No game got at least 2 votes for today... sorry!`;
+            }
+
             await interaction.reply(response);
         }
     }
