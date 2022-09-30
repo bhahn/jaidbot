@@ -78,7 +78,12 @@ client.on('interactionCreate', async interaction => {
             });
 
             collector.on('remove', (reaction, user) => {
-                voteCounts[r.emoji.name] = r.count - 1;
+                var count = voteCounts[r.emoji.name] - 1;
+                if(count === 1) 
+                {
+                    delete voteCounts[r.emoji.name];
+                }
+                voteCounts[r.emoji.name] = count - 1;
             });
 
 	} else if (commandName === '2sday_pick') {
