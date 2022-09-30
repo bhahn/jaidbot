@@ -63,6 +63,7 @@ client.on('interactionCreate', async interaction => {
             .then(message.react('1025197121915330580')) // MVC3
             .then(message.react('1025199945411723264')) // SamSho
             .then(message.react('1025199946183475291')) // SC6
+            .then(message.react('1025439601168494592')) // SF3rdStrike
             .then(message.react('1025197122905190440')) // Skullgirls
             .then(message.react('1025197123689529395')) // Smash U
             .then(message.react('1025197124629037107')); // TFH
