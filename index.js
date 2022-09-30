@@ -88,7 +88,7 @@ client.on('interactionCreate', async interaction => {
             // Check the voteCounts and pick one
             var response = '\n';
             for(var game in voteCounts) {
-                if(voteCounts > 0) {
+                if(voteCounts[game] > 0) {
                     response += `I got ${voteCounts[game]} vote(s) for ${game}\n`;
                     for(var i=0; i<voteCounts[game]; i++) {
                         votes.push(game);
