@@ -71,17 +71,20 @@ client.on('interactionCreate', async interaction => {
                 return user.id != message.author.id;
             };
             
-            const collector = message.createReactionCollector({ filter });
+            const collector = message.createReactionCollector( filter, { dispose: true } );
             collector.on('collect', r => 
             {
-                var gamevoteCounts = voteCounts[r.emoji.name];
-                if(!gamevoteCounts) {
-                    voteCounts[r.emoji.name] = 1;
-                } else {
-                    voteCounts[r.emoji.name] = r.count;
-                    votes.push(r.emoji.name);
-                }
+                voteCounts[r.emoji.name] = r.count - 1;
             });
+
+            collector.on('remove', (reaction, user) => {
+                if(r.count === 1 && voteCounts.hasKey(r.emoji.name)) {
+                    delete voteCounts[r.emoji.name]
+                }
+                else {
+                    voteCounts[r.emoji.name] = r.count - 1;
+                }
+              });
 
 	} else if (commandName === '2sday_pick') {
         if(votes.length === 0) {
@@ -91,6 +94,9 @@ client.on('interactionCreate', async interaction => {
             var response = '\n';
             for(var game in voteCounts) {
                 response += `I got ${voteCounts[game]} vote(s) for ${game}\n`;
+                for(var i=0; i<voteCounts[game]; i++) {
+                    votes.push(game);
+                }
             }
 
             response += '\n';
