@@ -87,7 +87,7 @@ client.on('interactionCreate', async interaction => {
               });
 
 	} else if (commandName === '2sday_pick') {
-        if(votes.length === 0) {
+        if(voteCounts.length === 0) {
             await interaction.reply('I can\'t find the most recent poll results');
 	    } else {
             // Check the voteCounts and pick one
