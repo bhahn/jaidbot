@@ -78,13 +78,8 @@ client.on('interactionCreate', async interaction => {
             });
 
             collector.on('remove', (reaction, user) => {
-                if(r.count === 1 && voteCounts.hasKey(r.emoji.name)) {
-                    delete voteCounts[r.emoji.name]
-                }
-                else {
-                    voteCounts[r.emoji.name] = r.count - 1;
-                }
-              });
+                voteCounts[r.emoji.name] = r.count - 1;
+            });
 
 	} else if (commandName === '2sday_pick') {
         if(voteCounts.length === 0) {
@@ -93,9 +88,11 @@ client.on('interactionCreate', async interaction => {
             // Check the voteCounts and pick one
             var response = '\n';
             for(var game in voteCounts) {
-                response += `I got ${voteCounts[game]} vote(s) for ${game}\n`;
-                for(var i=0; i<voteCounts[game]; i++) {
-                    votes.push(game);
+                if(voteCounts > 0) {
+                    response += `I got ${voteCounts[game]} vote(s) for ${game}\n`;
+                    for(var i=0; i<voteCounts[game]; i++) {
+                        votes.push(game);
+                    }
                 }
             }
 
